@@ -8,9 +8,10 @@ import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { StructuredData } from "@/components/StructuredData";
 import { Analytics } from "@/components/Analytics";
 import { isLocale, languageTags } from "@/lib/i18n";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.hosterialacamila.com"),
+  metadataBase: new URL(site.canonicalHost),
 };
 
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
