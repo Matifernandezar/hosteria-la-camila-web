@@ -18,9 +18,10 @@ const descriptions: Record<Locale, string> = {
 };
 
 export function pageMetadata(locale: Locale, page: PageKey, path = ""): Metadata {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? site.canonicalHost;
+  const base = site.canonicalHost;
   const suffix = path ? `/${path}` : "";
   const canonical = `${base}/${locale}${suffix}`;
+
   return {
     title: `${pageTitles[locale][page]} | ${site.name}`,
     description: descriptions[locale],
