@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { AvailabilityLauncher } from "@/components/AvailabilityLauncher";
-import { MediaPlaceholder } from "@/components/MediaPlaceholder";
+import { Base64Image } from "@/components/Base64Image";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
@@ -9,17 +9,23 @@ import { whatsappUrl } from "@/lib/site";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params; if (!isLocale(locale)) return {}; return pageMetadata(locale, "home");
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return pageMetadata(locale, "home");
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params; if (!isLocale(locale)) notFound();
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
   const d = getDictionary(locale);
   const wa = locale === "pt" ? "Olá, quero consultar uma estadia na Hostería La Camila." : locale === "en" ? "Hello, I would like to enquire about a stay at Hostería La Camila." : "Hola, quiero consultar por una estadía en Hostería La Camila.";
+
   return (
     <>
       <section className="hero">
-        <div className="heroMedia"><MediaPlaceholder label={d.common.photoPending} variant="wide" /></div>
+        <div className="heroMedia">
+          <Base64Image source="/images/hero.b64.txt" alt="Vista panorámica del lago Nahuel Huapi desde Hostería La Camila" className="heroPhoto" eager />
+        </div>
         <div className="heroOverlay" />
         <div className="shell heroContent">
           <div className="eyebrow light">{d.hero.eyebrow}</div>
@@ -42,10 +48,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       <section className="section sectionMuted">
         <div className="shell splitMedia">
-          <MediaPlaceholder label={d.common.photoPending} variant="landscape" />
+          <Base64Image source="/images/habitaciones.b64.txt" alt="Habitaciones de Hostería La Camila" className="mediaLandscape" />
           <div>
             <SectionHeading title={d.rooms.title} body={d.rooms.body} />
-            <a className="textLink" href={`/${locale}/reservar`}>{d.rooms.cta} →</a>
+            <a className="textLink" href={`/${locale}/habitaciones`}>{d.rooms.cta} →</a>
           </div>
         </div>
       </section>
@@ -72,7 +78,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <p>{d.location.body}</p>
             <Link className="textLink lightLink" href={`/${locale}/ubicacion`}>{d.location.directions} →</Link>
           </div>
-          <MediaPlaceholder label={d.common.photoPending} variant="portrait" />
+          <Base64Image source="/images/exterior.b64.txt" alt="Exterior de Hostería La Camila y su entorno patagónico" className="mediaPortrait" />
         </div>
       </section>
 
@@ -80,9 +86,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="shell">
           <SectionHeading title={d.gallery.title} body={d.gallery.body} />
           <div className="galleryPreview">
-            <MediaPlaceholder label={d.common.photoPending} variant="portrait" />
-            <MediaPlaceholder label={d.common.photoPending} variant="landscape" />
-            <MediaPlaceholder label={d.common.photoPending} variant="portrait" />
+            <Base64Image source="/images/exterior.b64.txt" alt="Exterior y piscina de Hostería La Camila" />
+            <Base64Image source="/images/habitaciones.b64.txt" alt="Habitaciones de Hostería La Camila" />
+            <Base64Image source="/images/bienestar.b64.txt" alt="Spa, hidromasaje y espacios de bienestar de Hostería La Camila" />
           </div>
           <Link className="textLink" href={`/${locale}/galeria`}>{d.common.viewGallery} →</Link>
         </div>
