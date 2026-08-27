@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Base64Image } from "@/components/Base64Image";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import type { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/i18n";
@@ -10,8 +11,8 @@ export function Header({ locale }: { locale: Locale }) {
     <header className="siteHeader">
       <div className="shell headerInner">
         <Link className="wordmark" href={base} aria-label="Hostería La Camila — inicio">
-          <span className="wordmarkMain">La Camila</span>
-          <span className="wordmarkSub">Hostería · Patagonia</span>
+          <Base64Image source="/images/logo-la-camila.b64.txt" alt="" className="brandLogo" eager />
+          <span className="srOnly">Hostería La Camila</span>
         </Link>
         <nav className="desktopNav" aria-label="Navegación principal">
           <Link href={`${base}/habitaciones`}>{d.nav.rooms}</Link>
