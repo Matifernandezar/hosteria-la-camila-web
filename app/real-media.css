@@ -40,7 +40,7 @@
 
 .galleryPreview .realMedia { min-height: 390px; }
 .galleryPreview .realMedia:nth-child(2) { min-height: 470px; }
-.galleryFull .realMedia { min-height: 440px; }
+.galleryFull .realMedia { min-height: 440px; grid-column: span 6 !important; }
 
 .roomCategoryNames {
   margin: 0 0 24px;
@@ -52,6 +52,9 @@
 .serviceHeroPhoto {
   min-height: 520px;
   margin: 0 0 54px;
+}
+.servicesEditorial article {
+  grid-template-columns: 70px 1fr;
 }
 
 .brandLogo {
@@ -74,6 +77,10 @@
   to { background-position-x: -200%; }
 }
 
+@media (max-width: 980px) {
+  .servicesEditorial article { grid-template-columns: 50px 1fr; }
+}
+
 @media (max-width: 680px) {
   .mediaLandscape,
   .mediaPortrait,
@@ -82,7 +89,9 @@
   .galleryFull .realMedia { min-height: 340px; }
   .galleryPreview .realMedia,
   .galleryPreview .realMedia:nth-child(2) { min-height: 300px; }
+  .galleryFull .realMedia { grid-column: auto !important; }
   .brandLogo { width: 96px; min-height: 46px; }
+  .servicesEditorial article { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
