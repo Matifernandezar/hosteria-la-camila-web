@@ -1,4 +1,5 @@
 import "../globals.css";
+import "../real-media.css";
 import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
