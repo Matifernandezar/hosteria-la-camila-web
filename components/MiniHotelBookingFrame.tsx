@@ -15,7 +15,6 @@ export function MiniHotelBookingFrame({ bookingUrl, nonce, fallbackLabel }: { bo
         id="hw-booking-frame"
         src={bookingUrl}
         frameBorder="0"
-        scrolling="no"
         className="bookingFrame"
         title="Motor de reservas de Hostería La Camila"
         onLoad={() => setLoaded(true)}
