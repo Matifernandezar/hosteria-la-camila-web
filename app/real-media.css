@@ -38,6 +38,22 @@
 .mediaPortrait { min-height: 540px; }
 .mediaWellness { min-height: 500px; }
 
+.lakeShowcaseGrid {
+  grid-template-columns: .82fr 1.18fr !important;
+  gap: clamp(46px, 6vw, 86px);
+}
+
+.lakePanorama {
+  min-height: 470px;
+  aspect-ratio: 16 / 10;
+  border-radius: 30px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .22);
+}
+
+.lakePanorama img {
+  object-position: center 48%;
+}
+
 .galleryPreview .realMedia { min-height: 390px; }
 .galleryPreview .realMedia:nth-child(2) { min-height: 470px; }
 .galleryFull .realMedia { min-height: 440px; grid-column: span 6 !important; }
@@ -73,12 +89,63 @@
 }
 .footerBrandLogo img { object-fit: contain; object-position: left center; }
 
+/* Booking engine: give MiniHotel the visual space of a primary booking experience. */
+.bookingPage .shell {
+  width: min(1420px, calc(100% - 28px));
+}
+
+.bookingPage .sectionHeading {
+  max-width: 900px;
+  margin-bottom: 30px;
+}
+
+.bookingFrameShell {
+  min-height: 1020px !important;
+  margin-top: 22px;
+  padding: 8px !important;
+  border-radius: 26px !important;
+  box-shadow: 0 24px 70px rgba(14, 42, 35, .10);
+  overflow: hidden !important;
+}
+
+.bookingFrame {
+  width: 100% !important;
+  height: 1020px !important;
+  min-height: 1020px !important;
+  display: block;
+  border: 0;
+}
+
+.bookingLoading {
+  inset: 8px 8px auto !important;
+}
+
+.bookingFallback {
+  max-width: 1420px;
+}
+
 @keyframes hotelImageLoading {
   to { background-position-x: -200%; }
 }
 
 @media (max-width: 980px) {
   .servicesEditorial article { grid-template-columns: 50px 1fr; }
+  .lakeShowcaseGrid { grid-template-columns: 1fr !important; }
+  .lakePanorama { min-height: 400px; aspect-ratio: 16 / 9; }
+
+  .bookingPage .shell {
+    width: min(100% - 20px, 1180px);
+  }
+
+  .bookingFrameShell {
+    min-height: 1120px !important;
+    padding: 6px !important;
+  }
+
+  .bookingFrame {
+    height: 1120px !important;
+    min-height: 1120px !important;
+  }
 }
 
 @media (max-width: 680px) {
@@ -92,6 +159,39 @@
   .galleryFull .realMedia { grid-column: auto !important; }
   .brandLogo { width: 96px; min-height: 46px; }
   .servicesEditorial article { grid-template-columns: 1fr; }
+
+  .lakePanorama {
+    min-height: 300px;
+    aspect-ratio: 4 / 3;
+    border-radius: 22px;
+  }
+
+  .bookingPage {
+    padding-top: 72px;
+  }
+
+  .bookingPage .shell {
+    width: calc(100% - 12px);
+  }
+
+  .bookingPage .sectionHeading,
+  .bookingPage .languageNotice,
+  .bookingPage .contextCard,
+  .bookingPage .bookingFallback {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .bookingFrameShell {
+    min-height: 1260px !important;
+    border-radius: 18px !important;
+    padding: 4px !important;
+  }
+
+  .bookingFrame {
+    height: 1260px !important;
+    min-height: 1260px !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
