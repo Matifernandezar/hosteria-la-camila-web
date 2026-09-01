@@ -70,15 +70,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      <section className="section sectionDark">
-        <div className="shell splitMedia reverse">
+      <section className="section sectionDark lakeShowcase">
+        <div className="shell splitMedia reverse lakeShowcaseGrid">
           <div>
             <div className="eyebrow light">Nahuel Huapi</div>
             <h2>{locale === "pt" ? "Vista que muda o ritmo da viagem" : locale === "en" ? "A view that changes the pace of your trip" : "Una vista que cambia el ritmo del viaje"}</h2>
             <p>{d.location.body}</p>
             <Link className="textLink lightLink" href={`/${locale}/ubicacion`}>{d.location.directions} →</Link>
           </div>
-          <Base64Image source="/images/exterior.b64.txt" alt="Exterior de Hostería La Camila y su entorno patagónico" className="mediaPortrait" />
+          <Base64Image source="/images/hero.b64.txt" alt="Vista panorámica del lago Nahuel Huapi desde Hostería La Camila" className="lakePanorama" />
         </div>
       </section>
 
