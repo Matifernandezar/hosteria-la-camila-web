@@ -31,9 +31,35 @@
   height: 100%;
   min-height: 100%;
   border-radius: 0;
+  background: #16372e;
 }
 
-.heroPhoto img { object-position: center 48%; }
+.heroMedia .realMedia img {
+  object-fit: cover;
+  object-position: center 52%;
+  filter: saturate(1.04) contrast(1.02);
+}
+
+.heroOverlay {
+  background:
+    linear-gradient(90deg, rgba(7, 24, 20, .76) 0%, rgba(7, 24, 20, .46) 43%, rgba(7, 24, 20, .12) 78%, rgba(7, 24, 20, .08) 100%),
+    linear-gradient(0deg, rgba(7, 24, 20, .22) 0%, transparent 38%) !important;
+}
+
+.heroContent {
+  max-width: 820px;
+}
+
+.heroContent h1 {
+  text-wrap: balance;
+  text-shadow: 0 3px 26px rgba(0, 0, 0, .22);
+}
+
+.heroContent p {
+  max-width: 620px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .18);
+}
+
 .mediaLandscape { min-height: 440px; }
 .mediaPortrait { min-height: 540px; }
 .mediaWellness { min-height: 500px; }
@@ -54,7 +80,10 @@
   object-position: center 48%;
 }
 
-.galleryPreview .realMedia { min-height: 390px; }
+.galleryPreview .realMedia {
+  min-height: 390px;
+  box-shadow: 0 18px 50px rgba(14, 42, 35, .08);
+}
 .galleryPreview .realMedia:nth-child(2) { min-height: 470px; }
 .galleryFull .realMedia { min-height: 440px; grid-column: span 6 !important; }
 
@@ -133,6 +162,10 @@
   .lakeShowcaseGrid { grid-template-columns: 1fr !important; }
   .lakePanorama { min-height: 400px; aspect-ratio: 16 / 9; }
 
+  .heroMedia .realMedia img {
+    object-position: 58% center;
+  }
+
   .bookingPage .shell {
     width: min(100% - 20px, 1180px);
   }
@@ -159,6 +192,16 @@
   .galleryFull .realMedia { grid-column: auto !important; }
   .brandLogo { width: 96px; min-height: 46px; }
   .servicesEditorial article { grid-template-columns: 1fr; }
+
+  .heroMedia .realMedia img {
+    object-position: 62% center;
+  }
+
+  .heroOverlay {
+    background:
+      linear-gradient(90deg, rgba(7, 24, 20, .74) 0%, rgba(7, 24, 20, .42) 58%, rgba(7, 24, 20, .18) 100%),
+      linear-gradient(0deg, rgba(7, 24, 20, .28) 0%, transparent 46%) !important;
+  }
 
   .lakePanorama {
     min-height: 300px;
