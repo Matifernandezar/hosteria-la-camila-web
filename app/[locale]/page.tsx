@@ -78,7 +78,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <p>{d.location.body}</p>
             <Link className="textLink lightLink" href={`/${locale}/ubicacion`}>{d.location.directions} →</Link>
           </div>
-          <Base64Image source="/images/hero.b64.txt" alt="Vista panorámica del lago Nahuel Huapi desde Hostería La Camila" className="lakePanorama" />
+          <Base64Image source="/images/exterior.b64.txt" alt="Hostería La Camila y su entorno en Villa La Angostura" className="lakePanorama" />
         </div>
       </section>
 
