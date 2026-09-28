@@ -24,7 +24,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <section className="hero">
         <div className="heroMedia">
-          <Base64Image source="/images/hero.b64.txt" alt="Vista panorámica del lago Nahuel Huapi desde Hostería La Camila" className="heroPhoto" eager />
+          <Base64Image source="/images/exterior.b64.txt" alt="Hostería La Camila, piscina exterior y entorno patagónico" className="heroPhoto" eager />
         </div>
         <div className="heroOverlay" />
         <div className="shell heroContent">
