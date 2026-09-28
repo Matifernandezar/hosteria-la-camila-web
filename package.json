@@ -4,7 +4,9 @@
   "private": true,
   "engines": { "node": "22.x" },
   "scripts": {
+    "predev": "node scripts/decode-images.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/decode-images.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
