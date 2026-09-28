@@ -31,12 +31,12 @@
   height: 100%;
   min-height: 100%;
   border-radius: 0;
-  background: #16372e;
+  background: #16372e url("/images/exterior.webp") center center / cover no-repeat;
 }
 
 .heroMedia .realMedia img {
   object-fit: cover;
-  object-position: center 52%;
+  object-position: center center;
   filter: saturate(1.04) contrast(1.02);
 }
 
@@ -162,8 +162,10 @@
   .lakeShowcaseGrid { grid-template-columns: 1fr !important; }
   .lakePanorama { min-height: 400px; aspect-ratio: 16 / 9; }
 
+  .heroMedia .realMedia,
   .heroMedia .realMedia img {
-    object-position: 58% center;
+    object-position: center center;
+    background-position: center center;
   }
 
   .bookingPage .shell {
@@ -193,14 +195,48 @@
   .brandLogo { width: 96px; min-height: 46px; }
   .servicesEditorial article { grid-template-columns: 1fr; }
 
+  .hero {
+    min-height: 735px;
+  }
+
+  .heroContent {
+    padding-top: 70px;
+    padding-bottom: 235px;
+  }
+
+  .heroContent h1 {
+    font-size: clamp(3rem, 12.6vw, 3.8rem);
+    line-height: .98;
+    letter-spacing: -.04em;
+    margin-bottom: 20px;
+  }
+
+  .heroContent p {
+    max-width: 96%;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .hero .buttonRow {
+    gap: 10px;
+  }
+
+  .hero .button {
+    min-height: 48px;
+    padding-inline: 18px;
+    font-size: .94rem;
+  }
+
+  .heroMedia .realMedia,
   .heroMedia .realMedia img {
-    object-position: 62% center;
+    object-position: 52% center;
+    background-position: 52% center;
   }
 
   .heroOverlay {
     background:
-      linear-gradient(90deg, rgba(7, 24, 20, .74) 0%, rgba(7, 24, 20, .42) 58%, rgba(7, 24, 20, .18) 100%),
-      linear-gradient(0deg, rgba(7, 24, 20, .28) 0%, transparent 46%) !important;
+      linear-gradient(90deg, rgba(7, 24, 20, .72) 0%, rgba(7, 24, 20, .40) 60%, rgba(7, 24, 20, .16) 100%),
+      linear-gradient(0deg, rgba(7, 24, 20, .30) 0%, transparent 48%) !important;
   }
 
   .lakePanorama {
