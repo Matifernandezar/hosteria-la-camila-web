@@ -20,34 +20,19 @@ async function writeDecoded(outputName, base64, label) {
   console.log(`Generated public/images/${outputName} (${image.length} bytes)`);
 }
 
-const multipart = new Map();
-for (const file of files) {
-  const match = file.match(/^(.*)\.b64\.part(\d+)\.txt$/);
-  if (!match) continue;
-  const [, base, part] = match;
-  const parts = multipart.get(base) ?? [];
-  parts.push({ file, part: Number(part) });
-  multipart.set(base, parts);
-}
-
-for (const [base, parts] of multipart) {
-  parts.sort((a, b) => a.part - b.part);
-  const chunks = await Promise.all(
-    parts.map(({ file }) => readFile(path.join(imagesDir, file), "utf8")),
-  );
-  await writeDecoded(`${base}.webp`, chunks.join(""), parts.map((p) => p.file).join(", "));
-}
-
-const multipartBases = new Set(multipart.keys());
-const standalone = files.filter((name) => name.endsWith(".b64.txt"));
+// Only complete *.b64.txt files are production sources.
+// Old multipart fragments (*.b64.partXX.txt) are deliberately ignored so an
+// interrupted asset upload can never break a production build.
+const standalone = files.filter(
+  (name) => name.endsWith(".b64.txt") && !/\.b64\.part\d+\.txt$/.test(name),
+);
 
 for (const file of standalone) {
   const base = file.replace(/\.b64\.txt$/, "");
-  if (multipartBases.has(base)) continue;
   const base64 = await readFile(path.join(imagesDir, file), "utf8");
   await writeDecoded(`${base}.webp`, base64, file);
 }
 
-if (!multipart.size && !standalone.length) {
+if (!standalone.length) {
   console.log("No Base64 hotel images found.");
 }
