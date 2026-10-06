@@ -41,6 +41,7 @@ export function pageMetadata(locale: Locale, page: PageKey, path = ""): Metadata
       title: `${pageTitles[locale][page]} | ${site.name}`,
       description: descriptions[locale],
       url: canonical,
+      images: [{ url: `${base}/images/exterior.webp`, width: 1024, height: 768, alt: site.name }],
     },
   };
 }

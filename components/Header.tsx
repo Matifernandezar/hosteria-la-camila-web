@@ -1,3 +1,4 @@
+import { editorial } from "@/lib/editorial";
 import Link from "next/link";
 import { Base64Image } from "@/components/Base64Image";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -10,11 +11,20 @@ export function Header({ locale }: { locale: Locale }) {
   return (
     <header className="siteHeader">
       <div className="shell headerInner">
-        <Link className="wordmark" href={base} aria-label="Hostería La Camila — inicio">
-          <Base64Image source="/images/logo-la-camila.b64.txt" alt="" className="brandLogo" eager />
+        <Link
+          className="wordmark"
+          href={base}
+          aria-label={`Hostería La Camila — ${d.nav.home}`}
+        >
+          <Base64Image
+            source="/images/logo-la-camila.b64.txt"
+            alt=""
+            className="brandLogo"
+            eager
+          />
           <span className="srOnly">Hostería La Camila</span>
         </Link>
-        <nav className="desktopNav" aria-label="Navegación principal">
+        <nav className="desktopNav" aria-label={d.nav.home}>
           <Link href={`${base}/habitaciones`}>{d.nav.rooms}</Link>
           <Link href={`${base}/servicios`}>{d.nav.services}</Link>
           <Link href={`${base}/galeria`}>{d.nav.gallery}</Link>
@@ -23,9 +33,11 @@ export function Header({ locale }: { locale: Locale }) {
         </nav>
         <div className="headerActions">
           <LanguageSwitcher locale={locale} />
-          <a className="button buttonSmall" href={`${base}/reservar`}>{d.nav.book}</a>
+          <a className="button buttonSmall" href={`${base}/reservar`}>
+            {d.nav.book}
+          </a>
           <details className="mobileNav">
-            <summary aria-label="Abrir menú">Menú</summary>
+            <summary>{editorial[locale].menu}</summary>
             <div className="mobileNavPanel">
               <Link href={`${base}/habitaciones`}>{d.nav.rooms}</Link>
               <Link href={`${base}/servicios`}>{d.nav.services}</Link>

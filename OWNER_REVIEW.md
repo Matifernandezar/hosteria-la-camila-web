@@ -14,5 +14,3 @@ Estos elementos ya estaban previstos como material del propietario y deben revis
 - nombres y descripciones definitivas de categorías de habitación;
 - versión final de políticas publicables;
 - confirmación final del texto de servicios activos.
-
-Restaurante y Piano Bar permanecen fuera de la web salvo confirmación explícita de que están activos.
