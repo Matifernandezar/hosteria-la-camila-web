@@ -58,6 +58,7 @@ export function PhotoGallery({
       <dialog
         ref={dialog}
         className="photoDialog"
+        aria-label={e.enlarge}
         onClick={(event) => {
           if (event.target === event.currentTarget) dialog.current?.close();
         }}

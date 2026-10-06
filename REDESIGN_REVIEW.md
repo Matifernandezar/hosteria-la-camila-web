@@ -31,3 +31,9 @@ Se eliminaron el antiguo `hero.b64.txt` truncado y sus fragmentos. El prebuild c
 El sitio antiguo hosterialacamila.com devolvió error de acceso. Se preservaron contactos y servicios del repositorio; se requiere confirmación del propietario sobre condiciones vigentes, cantidad de habitaciones y detalles operativos. No se publican capacidades ni categorías sin verificar, tarifas fijas, reseñas inventadas ni promesas de mejor precio. La piscina se describe como estacional y los masajes como adicionales.
 
 La migración de rutas antiguas requiere inventariar las URLs cuando el sitio anterior esté accesible. No se modificó DNS ni se reemplazó el dominio oficial. Canonical e idiomas conservan la configuración existente del dominio oficial.
+
+## Verificación
+
+Lint, TypeScript, build de producción y decodificación completa de las nueve imágenes (ocho fotos y logo) correctos. Vista previa de Vercel lista y portada revisada visualmente en escritorio. Galería: ocho fotos, apertura, avance y cierre con Escape comprobados. Cambio a inglés comprobado en la galería.
+
+`/revision-responsive.html` es una página auxiliar no indexable y sin enlaces desde el sitio para revisar anchos de 360, 390, 430, 768 y 1440 px en marcos del mismo origen.
