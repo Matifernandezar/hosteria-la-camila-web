@@ -8,6 +8,12 @@ import { analyticsEvents, track } from "@/lib/analytics";
 
 export function AvailabilityLauncher({ locale }: { locale: Locale }) {
   const d = getDictionary(locale);
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Argentina/Buenos_Aires",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [adults, setAdults] = useState("2");
@@ -15,7 +21,7 @@ export function AvailabilityLauncher({ locale }: { locale: Locale }) {
 
   function submit(event: React.FormEvent) {
     event.preventDefault();
-    if (checkin && checkout && checkout <= checkin) return;
+    if (checkin < today || (checkin && checkout && checkout <= checkin)) return;
     track(analyticsEvents.availabilitySearch, {
       locale,
       checkin,
@@ -39,6 +45,7 @@ export function AvailabilityLauncher({ locale }: { locale: Locale }) {
         <input
           type="date"
           required
+          min={today}
           value={checkin}
           onChange={(e) => {
             setCheckin(e.target.value);
