@@ -1,3 +1,4 @@
+import { editorial } from "@/lib/editorial";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Base64Image } from "@/components/Base64Image";
@@ -5,12 +6,20 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   return isLocale(locale) ? pageMetadata(locale, "services", "servicios") : {};
 }
 
-export default async function Services({ params }: { params: Promise<{ locale: string }> }) {
+export default async function Services({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const d = getDictionary(locale);
@@ -26,8 +35,12 @@ export default async function Services({ params }: { params: Promise<{ locale: s
     <>
       <section className="pageHero section">
         <div className="shell">
-          <SectionHeading title={d.services.title} />
-          <Base64Image source="/images/bienestar.b64.txt" alt="Spa, hidromasaje, sauna y desayuno en Hostería La Camila" className="serviceHeroPhoto" />
+          <SectionHeading level="h1" title={d.services.title} />
+          <Base64Image
+            source="/images/bienestar.b64.txt"
+            alt={editorial[locale].photos[2]}
+            className="serviceHeroPhoto"
+          />
         </div>
       </section>
       <section className="section">
@@ -35,7 +48,10 @@ export default async function Services({ params }: { params: Promise<{ locale: s
           {items.map((item, index) => (
             <article key={item[0]}>
               <div className="serviceNo">0{index + 1}</div>
-              <div><h2>{item[0]}</h2><p>{item[1]}</p></div>
+              <div>
+                <h2>{item[0]}</h2>
+                <p>{item[1]}</p>
+              </div>
             </article>
           ))}
           <p className="serviceExtra">{d.services.extra}</p>

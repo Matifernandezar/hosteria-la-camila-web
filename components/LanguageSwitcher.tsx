@@ -1,5 +1,6 @@
 "use client";
 
+import { editorial } from "@/lib/editorial";
 import { usePathname, useSearchParams } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import { track, analyticsEvents } from "@/lib/analytics";
@@ -19,9 +20,17 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
   }
   return (
     <label className="languageSelect">
-      <span className="srOnly">Idioma</span>
-      <select value={locale} onChange={(e) => change(e.target.value as Locale)} aria-label="Idioma">
-        {(Object.keys(labels) as Locale[]).map((key) => <option key={key} value={key}>{labels[key]}</option>)}
+      <span className="srOnly">{editorial[locale].language}</span>
+      <select
+        value={locale}
+        onChange={(e) => change(e.target.value as Locale)}
+        aria-label={editorial[locale].language}
+      >
+        {(Object.keys(labels) as Locale[]).map((key) => (
+          <option key={key} value={key}>
+            {labels[key]}
+          </option>
+        ))}
       </select>
     </label>
   );

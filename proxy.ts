@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  // The isolated visual review page may embed only pages from this origin.
+  const reviewFrameOrigin =
+    request.nextUrl.pathname === "/revision-responsive.html" ? "'self'" : "";
   const isDev = process.env.NODE_ENV === "development";
 
   const csp = `
@@ -11,13 +14,15 @@ export function proxy(request: NextRequest) {
     img-src 'self' data: blob: https:;
     font-src 'self' data:;
     connect-src 'self' https://frame2.hotelpms.io https://www.google-analytics.com https://region1.google-analytics.com;
-    frame-src https://frame2.hotelpms.io https://www.google.com;
+    frame-src ${reviewFrameOrigin} https://frame2.hotelpms.io https://www.google.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'self';
     upgrade-insecure-requests;
-  `.replace(/\s{2,}/g, " ").trim();
+  `
+    .replace(/\s{2,}/g, " ")
+    .trim();
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
@@ -31,7 +36,8 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     {
-      source: "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
+      source:
+        "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
         { type: "header", key: "purpose", value: "prefetch" },

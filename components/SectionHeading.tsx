@@ -1,8 +1,19 @@
-export function SectionHeading({ eyebrow, title, body }: { eyebrow?: string; title: string; body?: string }) {
+export function SectionHeading({
+  eyebrow,
+  title,
+  body,
+  level = "h2",
+}: {
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  level?: "h1" | "h2";
+}) {
+  const Heading = level;
   return (
     <div className="sectionHeading">
       {eyebrow ? <div className="eyebrow">{eyebrow}</div> : null}
-      <h2>{title}</h2>
+      <Heading>{title}</Heading>
       {body ? <p>{body}</p> : null}
     </div>
   );

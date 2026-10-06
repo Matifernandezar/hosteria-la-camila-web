@@ -21,7 +21,7 @@ export function WhatsAppFloat({ locale }: { locale: Locale }) {
       href={whatsappUrl(message)}
       target="_blank"
       rel="noreferrer"
-      aria-label="Contactar por WhatsApp"
+      aria-label={locale === "en" ? "Contact us on WhatsApp" : locale === "pt" ? "Falar pelo WhatsApp" : "Contactar por WhatsApp"}
       onClick={() => track(analyticsEvents.whatsappClick, { page: pathname, locale })}
     >
       <svg width="28" height="28" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false">

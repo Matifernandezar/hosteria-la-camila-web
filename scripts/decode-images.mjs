@@ -1,5 +1,6 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import sharp from "sharp";
 
 const imagesDir = path.join(process.cwd(), "public", "images");
 const files = await readdir(imagesDir);
@@ -10,12 +11,15 @@ function assertWebP(image, label) {
     image.toString("ascii", 0, 4) === "RIFF" &&
     image.toString("ascii", 8, 12) === "WEBP";
 
-  if (!isWebP) throw new Error(`Invalid WebP Base64 asset: ${label}`);
+  const complete = isWebP && image.readUInt32LE(4) + 8 === image.length;
+  if (!complete) throw new Error(`Invalid WebP Base64 asset: ${label}`);
 }
 
 async function writeDecoded(outputName, base64, label) {
   const image = Buffer.from(base64.replace(/\s+/g, ""), "base64");
   assertWebP(image, label);
+  // Fully decode pixels, not just the container header, before publishing.
+  await sharp(image, { failOn: "warning" }).stats();
   await writeFile(path.join(imagesDir, outputName), image);
   console.log(`Generated public/images/${outputName} (${image.length} bytes)`);
 }

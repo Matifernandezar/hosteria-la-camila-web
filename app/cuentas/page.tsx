@@ -173,6 +173,8 @@ export default function CuentasPage() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // Hydrate saved client-only data after mount; keep server markup deterministic.
+    /* eslint-disable react-hooks/set-state-in-effect */
     try {
       const savedCatalog = localStorage.getItem(CATALOG_KEY);
       if (savedCatalog) setProducts(JSON.parse(savedCatalog));
@@ -191,6 +193,7 @@ export default function CuentasPage() {
     } finally {
       setReady(true);
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   useEffect(() => {
