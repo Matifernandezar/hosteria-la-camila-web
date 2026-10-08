@@ -294,6 +294,14 @@ p {
   overflow: hidden;
   border-radius: 3px;
 }
+.galleryImage img,
+.dialogImage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 .galleryImage img {
   object-fit: cover;
   transition: transform 0.5s;

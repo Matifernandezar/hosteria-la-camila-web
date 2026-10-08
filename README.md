@@ -15,18 +15,18 @@ Abrir `http://localhost:3000/es`.
 ## Producción
 
 1. Crear proyecto en Vercel desde este repositorio.
-2. Definir `NEXT_PUBLIC_SITE_URL=https://www.hosterialacamila.com`.
+2. Usar `NEXT_PUBLIC_SITE_URL=https://hosteria-la-camila-web.vercel.app` mientras el dominio oficial no esté conectado. Actualizarlo después de verificar DNS/HTTPS del dominio definitivo.
 3. Mantener `NEXT_PUBLIC_MINIHOTEL_BOOKING_URL` exactamente con el hotel, motor, `currency=USD`, `language=es-ES` y `rp=` oficiales.
 4. Conectar el dominio y verificar DNS/HTTPS.
 5. Reemplazar los marcadores visuales por fotografías profesionales reales y el wordmark textual por el logo oficial, sin alterar el logo.
 6. Validar manualmente el flujo completo de MiniHotel en móvil y escritorio.
-7. Ejecutar `npm run typecheck`, `npm run lint` y `npm run build` antes del despliegue.
+7. Ejecutar `npm test`, `npm run typecheck`, `npm run lint` y `npm run build` con Node 22 antes del despliegue.
 
 ## MiniHotel
 
-El iframe usa exclusivamente la URL oficial entregada. Los scripts `iframe-resizer.min.js` y `main.js` se cargan con `next/script`, estrategia `afterInteractive`, y el CSP permite únicamente el origen necesario de MiniHotel para `frame-src`, `script-src` y `connect-src`.
+El iframe usa exclusivamente la URL oficial entregada. `iframe-resizer.min.js` se carga con `next/script` y se inicializa explícitamente al estar listo el script o el iframe, también al volver por navegación cliente. Se conserva el método oficial `taggedElement`; la altura de CSS permite la actualización del resizer. Los mensajes de posición y desplazamiento se limitan al origen y ventana del motor. No se usa el inicializador dependiente de `DOMContentLoaded` del proveedor.
 
-Los campos de fecha/huéspedes de la home se transportan a `/reservar` como contexto para el usuario y WhatsApp. No se inyectan parámetros no documentados dentro del iframe. La búsqueda real y la confirmación se hacen en MiniHotel.
+Los campos de fecha/huéspedes se validan tanto en la home como en `/reservar`: fechas de calendario válidas, entrada no pasada en horario de Buenos Aires, salida posterior, 1–6 adultos y 0–4 menores. Se transfieren al iframe con `from`, `to`, `nAdults` y `nChilds`, reconocidos en el script oficial `bframe-main.js` y comprobados en el motor el 8 de octubre de 2026. MiniHotel sigue resolviendo disponibilidad, tarifas y confirmación. Las consultas incompletas, repetidas o inválidas muestran un aviso y no generan una tarjeta ni un WhatsApp con esos valores.
 
 ## Idiomas
 

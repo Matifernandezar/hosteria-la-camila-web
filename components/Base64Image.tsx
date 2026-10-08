@@ -4,12 +4,14 @@ type Base64ImageProps = {
   alt: string;
   className?: string;
   eager?: boolean;
+  sizes?: string;
 };
 export function Base64Image({
   source,
   alt,
   className = "",
   eager = false,
+  sizes,
 }: Base64ImageProps) {
   const src = source.replace(/\.b64\.txt$/, ".webp");
   const logo = source.includes("logo-la-camila");
@@ -19,7 +21,7 @@ export function Base64Image({
         src={src}
         alt={alt}
         fill
-        sizes={logo ? "155px" : "(max-width: 980px) 100vw, 55vw"}
+        sizes={sizes ?? (logo ? "155px" : "(max-width: 980px) 100vw, 55vw")}
         priority={eager}
       />
     </div>

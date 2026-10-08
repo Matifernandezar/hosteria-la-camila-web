@@ -2,18 +2,14 @@
 
 import { editorial } from "@/lib/editorial";
 import { useState } from "react";
+import { bookingToday, nextBookingDay, parseBookingContext } from "@/lib/booking-context";
 import type { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/i18n";
 import { analyticsEvents, track } from "@/lib/analytics";
 
 export function AvailabilityLauncher({ locale }: { locale: Locale }) {
   const d = getDictionary(locale);
-  const today = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Argentina/Buenos_Aires",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date());
+  const today = bookingToday();
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [adults, setAdults] = useState("2");
@@ -21,7 +17,7 @@ export function AvailabilityLauncher({ locale }: { locale: Locale }) {
 
   function submit(event: React.FormEvent) {
     event.preventDefault();
-    if (checkin < today || (checkin && checkout && checkout <= checkin)) return;
+    if (parseBookingContext({ checkin, checkout, adults, children }, bookingToday()).status !== "valid") return;
     track(analyticsEvents.availabilitySearch, {
       locale,
       checkin,
@@ -59,13 +55,7 @@ export function AvailabilityLauncher({ locale }: { locale: Locale }) {
           type="date"
           required
           value={checkout}
-          min={
-            checkin
-              ? new Date(Date.parse(checkin) + 86400000)
-                  .toISOString()
-                  .slice(0, 10)
-              : undefined
-          }
+          min={nextBookingDay(checkin)}
           onInvalid={(e) => {
             if (checkout && checkout <= checkin)
               e.currentTarget.setCustomValidity(editorial[locale].invalidDates);

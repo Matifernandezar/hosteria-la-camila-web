@@ -10,7 +10,7 @@ export const site = {
   name: "Hostería La Camila",
   canonicalHost: nonEmptyEnv(
     process.env.NEXT_PUBLIC_SITE_URL,
-    "https://www.hosterialacamila.com",
+    "https://hosteria-la-camila-web.vercel.app",
   ),
   address:
     "Ruta 40 Km 2120, Av. Siete Lagos 5418, Barrio Las Bandurrias, Villa La Angostura, Neuquén, Argentina",

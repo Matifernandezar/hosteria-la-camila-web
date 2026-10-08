@@ -93,7 +93,7 @@ export default async function HomePage({
           </div>
         </div>
         <div className="shell landscapeMoment">
-          <Base64Image source="/images/living.b64.txt" alt={e.photos[3]} />
+          <Base64Image source="/images/living.b64.txt" alt={e.photos[3]} sizes="(max-width: 1320px) 100vw, 1240px" />
           <span>{d.hero.eyebrow}</span>
         </div>
       </section>

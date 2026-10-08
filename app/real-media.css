@@ -129,7 +129,7 @@
 }
 
 .bookingFrameShell {
-  min-height: 1020px !important;
+  min-height: 700px;
   margin-top: 22px;
   padding: 8px !important;
   border-radius: 26px !important;
@@ -139,8 +139,8 @@
 
 .bookingFrame {
   width: 100% !important;
-  height: 1020px !important;
-  min-height: 1020px !important;
+  height: 1020px;
+  min-height: 700px;
   display: block;
   border: 0;
 }
@@ -173,13 +173,11 @@
   }
 
   .bookingFrameShell {
-    min-height: 1120px !important;
     padding: 6px !important;
   }
 
   .bookingFrame {
-    height: 1120px !important;
-    min-height: 1120px !important;
+    height: 1120px;
   }
 }
 
@@ -262,14 +260,12 @@
   }
 
   .bookingFrameShell {
-    min-height: 1260px !important;
     border-radius: 18px !important;
     padding: 4px !important;
   }
 
   .bookingFrame {
-    height: 1260px !important;
-    min-height: 1260px !important;
+    height: 1260px;
   }
 }
 

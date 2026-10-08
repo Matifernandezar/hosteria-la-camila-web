@@ -8,7 +8,7 @@ const labels = {
     checkout: "Salida",
     adults: "Adultos",
     childCount: "Menores",
-    note: "Confirmalos dentro de MiniHotel para consultar disponibilidad real.",
+    note: "Estos datos se cargan en MiniHotel. Revisalos allí antes de reservar.",
     help: "Consultar estos datos por WhatsApp",
   },
   pt: {
@@ -17,7 +17,7 @@ const labels = {
     checkout: "Saída",
     adults: "Adultos",
     childCount: "Crianças",
-    note: "Confirme-os dentro do MiniHotel para consultar a disponibilidade real.",
+    note: "Estes dados são carregados no MiniHotel. Revise-os antes de reservar.",
     help: "Consultar estes dados pelo WhatsApp",
   },
   en: {
@@ -26,7 +26,7 @@ const labels = {
     checkout: "Check-out",
     adults: "Adults",
     childCount: "Children",
-    note: "Confirm them inside MiniHotel to check live availability.",
+    note: "These details are loaded into MiniHotel. Review them before booking.",
     help: "Ask about these dates on WhatsApp",
   },
 } as const;

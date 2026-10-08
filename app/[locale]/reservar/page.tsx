@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { parseBookingContext } from "@/lib/booking-context";
 import { BookingContextCard } from "@/components/BookingContextCard";
 import { MiniHotelBookingFrame } from "@/components/MiniHotelBookingFrame";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -27,9 +28,9 @@ export default async function Book({
   const sp = await searchParams;
   const d = getDictionary(locale);
   const nonce = (await headers()).get("x-nonce") ?? undefined;
-  const bookingUrl = getBookingUrl();
-  const one = (k: string) =>
-    typeof sp[k] === "string" ? (sp[k] as string) : undefined;
+  const result = parseBookingContext(sp);
+  const context = result.status === "valid" ? result.context : undefined;
+  const bookingUrl = getBookingUrl(context);
   return (
     <section className="pageHero section bookingPage">
       <div className="shell">
@@ -37,13 +38,16 @@ export default async function Book({
         {locale !== "es" ? (
           <div className="languageNotice">{d.book.engineSpanish}</div>
         ) : null}
-        <BookingContextCard
+        {result.status === "invalid" ? (
+          <div className="languageNotice" role="alert">{d.book.invalidContext}</div>
+        ) : null}
+        {context ? <BookingContextCard
           locale={locale}
-          checkin={one("checkin")}
-          checkout={one("checkout")}
-          adults={one("adults")}
-          childCount={one("children")}
-        />
+          checkin={context.checkin}
+          checkout={context.checkout}
+          adults={context.adults}
+          childCount={context.children}
+        /> : null}
         <MiniHotelBookingFrame
           locale={locale}
           bookingUrl={bookingUrl}

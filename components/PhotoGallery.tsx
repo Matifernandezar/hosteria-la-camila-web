@@ -45,7 +45,7 @@ export function PhotoGallery({
                 src={src}
                 alt={e.photos[i]}
                 fill
-                sizes="(max-width: 680px) 90vw, 33vw"
+                sizes={full ? "(max-width: 680px) 90vw, (max-width: 1320px) 50vw, 604px" : "(max-width: 680px) 90vw, (max-width: 1320px) 33vw, 398px"}
               />
             </span>
             <span className="galleryCaption">

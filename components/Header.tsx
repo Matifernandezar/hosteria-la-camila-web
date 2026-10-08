@@ -1,5 +1,6 @@
 import { editorial } from "@/lib/editorial";
 import Link from "next/link";
+import { MobileNav } from "@/components/MobileNav";
 import { Base64Image } from "@/components/Base64Image";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import type { Locale } from "@/lib/i18n";
@@ -36,17 +37,14 @@ export function Header({ locale }: { locale: Locale }) {
           <a className="button buttonSmall" href={`${base}/reservar`}>
             {d.nav.book}
           </a>
-          <details className="mobileNav">
-            <summary>{editorial[locale].menu}</summary>
-            <div className="mobileNavPanel">
-              <Link href={`${base}/habitaciones`}>{d.nav.rooms}</Link>
-              <Link href={`${base}/servicios`}>{d.nav.services}</Link>
-              <Link href={`${base}/galeria`}>{d.nav.gallery}</Link>
-              <Link href={`${base}/ubicacion`}>{d.nav.location}</Link>
-              <Link href={`${base}/contacto`}>{d.nav.contact}</Link>
-              <a href={`${base}/reservar`}>{d.nav.book}</a>
-            </div>
-          </details>
+          <MobileNav label={editorial[locale].menu} links={[
+            { href: `${base}/habitaciones`, label: d.nav.rooms },
+            { href: `${base}/servicios`, label: d.nav.services },
+            { href: `${base}/galeria`, label: d.nav.gallery },
+            { href: `${base}/ubicacion`, label: d.nav.location },
+            { href: `${base}/contacto`, label: d.nav.contact },
+            { href: `${base}/reservar`, label: d.nav.book },
+          ]} />
         </div>
       </div>
     </header>
