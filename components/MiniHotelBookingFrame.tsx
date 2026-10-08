@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const resizeScript =
   "https://frame2.hotelpms.io/BookingFrameClient/public/assets/booking-frame/js/iframe-resizer.min.js";
-type ResizableFrame = HTMLIFrameElement & { iFrameResizer?: { close: () => void } };
+type ResizableFrame = HTMLIFrameElement & { iFrameResizer?: { removeListeners: () => void } };
 type ResizeWindow = Window & {
   iFrameResize?: (options: { log: boolean; heightCalculationMethod: string; checkOrigin: string[] }, frame: HTMLIFrameElement) => void;
 };
@@ -62,7 +62,8 @@ export function MiniHotelBookingFrame({ bookingUrl, nonce, fallbackLabel, locale
       window.removeEventListener("scroll", sendPosition);
       window.removeEventListener("resize", sendPosition);
       window.removeEventListener("message", receiveMessage);
-      element.iFrameResizer?.close();
+      element.iFrameResizer?.removeListeners();
+      delete element.iFrameResizer;
     };
   }, [bookingUrl, initialize]);
 
