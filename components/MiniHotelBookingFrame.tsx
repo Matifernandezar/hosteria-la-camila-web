@@ -3,6 +3,7 @@
 import type { Locale } from "@/lib/i18n";
 import { editorial } from "@/lib/editorial";
 import Script from "next/script";
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const resizeScript =
@@ -20,6 +21,13 @@ export function MiniHotelBookingFrame({ bookingUrl, nonce, fallbackLabel, locale
 }) {
   const frame = useRef<ResizableFrame>(null);
   const [loaded, setLoaded] = useState(false);
+  const galleryDialog = useRef<HTMLDialogElement>(null);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [activeImage, setActiveImage] = useState(0);
+  const e = editorial[locale];
+  function moveImage(step: number) {
+    setActiveImage((index) => (index + step + galleryImages.length) % galleryImages.length);
+  }
   const initialize = useCallback(() => {
     const element = frame.current;
     if (element && !element.iFrameResizer) {
@@ -53,6 +61,18 @@ export function MiniHotelBookingFrame({ bookingUrl, nonce, fallbackLabel, locale
     function receiveMessage(event: MessageEvent) {
       if (event.origin !== origin || event.source !== element?.contentWindow) return;
       if (event.data?.type === "BFRAME_SCROLL_TOP") element?.scrollIntoView();
+      if (event.data?.type === "hw-open-gallery" && Array.isArray(event.data.images)) {
+        const images = event.data.images.flatMap((image: unknown) => {
+          if (!image || typeof image !== "object" || !("src" in image) || typeof image.src !== "string") return [];
+          try { return new URL(image.src).protocol === "https:" ? [image.src] : []; }
+          catch { return []; }
+        });
+        if (images.length) {
+          setGalleryImages(images);
+          setActiveImage(0);
+          galleryDialog.current?.showModal();
+        }
+      }
     }
     sendPosition();
     window.addEventListener("scroll", sendPosition, { passive: true });
@@ -74,6 +94,26 @@ export function MiniHotelBookingFrame({ bookingUrl, nonce, fallbackLabel, locale
         className="bookingFrame" title={editorial[locale].bookingTitle}
         onLoad={() => { setLoaded(true); initialize(); }} />
       <Script src={resizeScript} strategy="afterInteractive" nonce={nonce} onReady={initialize} />
+      <dialog ref={galleryDialog} className="photoDialog" aria-label={e.enlarge}
+        onClick={(event) => { if (event.target === event.currentTarget) galleryDialog.current?.close(); }}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowRight") moveImage(1);
+          if (event.key === "ArrowLeft") moveImage(-1);
+        }}>
+        <div className="dialogToolbar">
+          <span>{activeImage + 1} / {galleryImages.length}</span>
+          <button autoFocus onClick={() => galleryDialog.current?.close()}>{e.close} ×</button>
+        </div>
+        <div className="dialogImage">
+          {galleryImages[activeImage] ? <Image src={galleryImages[activeImage]}
+            alt={`${e.photos[1]} — ${activeImage + 1}`} fill unoptimized sizes="90vw" /> : null}
+        </div>
+        <div className="dialogToolbar">
+          <button onClick={() => moveImage(-1)}>← {e.previous}</button>
+          <p>{e.photos[1]}</p>
+          <button onClick={() => moveImage(1)}>{e.next} →</button>
+        </div>
+      </dialog>
       <noscript><a href={bookingUrl} target="_blank" rel="noreferrer">{fallbackLabel}</a></noscript>
     </div>
   );
